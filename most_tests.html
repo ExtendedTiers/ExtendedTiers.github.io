@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player with Most Tier Tests</title>
+    <title>Tier Test Counter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,6 +41,9 @@
         }
         th {
             background-color: #f2f2f2;
+        }
+        .highlighted {
+            background-color: #ff0; /* Change this color to your desired highlight color */
         }
     </style>
 </head>
@@ -81,6 +84,7 @@
             const row = mostTestsTable.insertRow();
             row.insertCell(0).textContent = playerWithMostTests;
             row.insertCell(1).textContent = maxTests;
+            row.classList.add('highlighted'); // Add the 'highlighted' class to the row
         })
         .catch(error => console.error('Error fetching total results:', error));
 </script>
