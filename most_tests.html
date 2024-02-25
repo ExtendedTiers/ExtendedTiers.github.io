@@ -47,7 +47,7 @@
 <body>
 
 <div class="navbar">
-    <a href="leaderboard.html">Leaderboard</a>
+    <a href="index.html">Leaderboard</a>
     <a href="most_tests.html">Most Tests</a>
 </div>
 
@@ -62,7 +62,7 @@
 </div>
 
 <script>
-    fetch('total_results.json')
+    fetch('totalresults.json')
         .then(response => response.json())
         .then(data => {
             const mostTestsTable = document.getElementById('mostTestsTable');
