@@ -57,24 +57,12 @@
         .tier5 {
             background-color: #00bfff;
         }
-        .golden {
-            background-color: gold;
-        }
-        .silver {
-            background-color: silver;
-        }
-        .bronze {
-            background-color: bronze;
-        }
-        .blue {
-            background-color: #00bfff; /* Blue */
-        }
     </style>
 </head>
 <body>
 
 <div class="navbar">
-    <a href="index.html">Leaderboard</a>
+    <a href="leaderboard.html">Leaderboard</a>
     <a href="most_tests.html">Most Tests</a>
 </div>
 
@@ -96,7 +84,7 @@
             const leaderboardTable = document.getElementById('leaderboardTable');
             let rank = 1;
             for (const player in data) {
-                if (data.hasOwnProperty(player)) {
+                if (Object.prototype.hasOwnProperty.call(data, player)) {
                     const tier = data[player];
                     const row = leaderboardTable.insertRow();
                     row.insertCell(0).textContent = rank++;
@@ -121,7 +109,7 @@
             'Low Tier 1': 'tier1',
             'High Tier 1': 'tier1',
         };
-        return tierClassMap[tier];
+        return tierClassMap[tier] || ''; // Return empty string if tier not found
     }
 </script>
 
