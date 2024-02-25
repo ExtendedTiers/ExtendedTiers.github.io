@@ -7,12 +7,7 @@
 </head>
 <body>
 
-<div class="navbar">
-    <a href="index.html">Leaderboard</a>
-    <a href="most_tests.html">Most Tests</a>
-</div>
-
-<div class="most-tests">
+<div>
     <h2>Player(s) with the Most Tier Tests</h2>
     <div id="mostTestsResult"></div>
 </div>
@@ -29,7 +24,7 @@
             let playersWithMostTests = [];
 
             for (const player in data) {
-                if (Object.prototype.hasOwnProperty.call(data, player)) {
+                if (player !== 'total_results' && data.hasOwnProperty(player)) {
                     const tests = data[player];
                     if (tests > maxTests) {
                         maxTests = tests;
