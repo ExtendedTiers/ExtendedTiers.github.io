@@ -90,26 +90,22 @@
                     row.insertCell(0).textContent = rank++;
                     row.insertCell(1).textContent = player;
                     row.insertCell(2).textContent = tier;
-                    row.classList.add(getTierClass(tier));
+                    row.classList.add(getTierClass(rank));
                 }
             }
         })
         .catch(error => console.error('Error fetching leaderboard:', error));
 
-    function getTierClass(tier) {
-        const tierClassMap = {
-            'Low Tier 5': 'tier5',
-            'High Tier 5': 'tier5',
-            'Low Tier 4': 'tier4',
-            'High Tier 4': 'tier4',
-            'Low Tier 3': 'tier3',
-            'High Tier 3': 'tier3',
-            'Low Tier 2': 'tier2',
-            'High Tier 2': 'tier2',
-            'Low Tier 1': 'tier1',
-            'High Tier 1': 'tier1',
-        };
-        return tierClassMap[tier];
+    function getTierClass(rank) {
+        if (rank === 1) {
+            return 'golden';
+        } else if (rank === 2) {
+            return 'silver';
+        } else if (rank === 3) {
+            return 'bronze';
+        } else {
+            return 'blue';
+        }
     }
 </script>
 
