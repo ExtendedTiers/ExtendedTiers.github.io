@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Most Tier Tests Leaderboard</title>
+    <title>Player with Most Tier Tests</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +47,7 @@
 <body>
 
 <div class="navbar">
-    <a href="index.html">Leaderboard</a>
+    <a href="leaderboard.html">Leaderboard</a>
     <a href="most_tests.html">Most Tests</a>
 </div>
 
@@ -66,9 +66,12 @@
         .then(response => response.json())
         .then(data => {
             const mostTestsTable = document.getElementById('mostTestsTable');
+            const totalResults = data.total_results;
             delete data.total_results;
+
             let maxTests = 0;
             let playerWithMostTests = '';
+
             for (const player in data) {
                 if (Object.prototype.hasOwnProperty.call(data, player)) {
                     const tests = data[player];
@@ -78,6 +81,7 @@
                     }
                 }
             }
+
             const row = mostTestsTable.insertRow();
             row.insertCell(0).textContent = playerWithMostTests;
             row.insertCell(1).textContent = maxTests;
