@@ -9,14 +9,14 @@
 
 <div>
     <h2>Player(s) with the Most Tier Tests</h2>
-    <div id="mostTestsResult"></div>
+    <ul id="mostTestsList"></ul>
 </div>
 
 <script>
     fetch('totalresults.json')
         .then(response => response.json())
         .then(data => {
-            const mostTestsResult = document.getElementById('mostTestsResult');
+            const mostTestsList = document.getElementById('mostTestsList');
             const totalResults = data.total_results;
             delete data.total_results;
 
@@ -35,7 +35,11 @@
                 }
             }
 
-            mostTestsResult.textContent = `Player(s) with the most tier tests: ${playersWithMostTests.join(', ')}`;
+            playersWithMostTests.forEach(player => {
+                const listItem = document.createElement('li');
+                listItem.textContent = player;
+                mostTestsList.appendChild(listItem);
+            });
         })
         .catch(error => console.error('Error fetching total results:', error));
 </script>
