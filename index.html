@@ -93,6 +93,9 @@
             const tierInfo = document.getElementById('tier-info');
             tierInfo.innerHTML = `Username: ${username} <br> Tier: ${tier} <br> Tier Tests: ${tests}`;
             tierInfo.style.display = 'block';
+
+            // Remove existing click event listener before adding a new one
+            document.removeEventListener('click', hideTierInfo);
             document.addEventListener('click', hideTierInfo);
         }
 
