@@ -95,31 +95,16 @@
         .then(data => {
             const leaderboardTable = document.getElementById('leaderboardTable');
             let rank = 1;
-            const tierOrder = [
-                'High Tier 1',
-                'Low Tier 1',
-                'High Tier 2',
-                'Low Tier 2',
-                'High Tier 3',
-                'Low Tier 3',
-                'High Tier 4',
-                'Low Tier 4',
-                'High Tier 5',
-                'Low Tier 5'
-            ];
-            tierOrder.forEach(tier => {
-                for (const player in data) {
-                    if (data.hasOwnProperty(player)) {
-                        if (data[player] === tier) {
-                            const row = leaderboardTable.insertRow();
-                            row.insertCell(0).textContent = rank++;
-                            row.insertCell(1).textContent = player;
-                            row.insertCell(2).textContent = tier;
-                            row.classList.add(getTierClass(tier));
-                        }
-                    }
+            for (const player in data) {
+                if (data.hasOwnProperty(player)) {
+                    const tier = data[player];
+                    const row = leaderboardTable.insertRow();
+                    row.insertCell(0).textContent = rank++;
+                    row.insertCell(1).textContent = player;
+                    row.insertCell(2).textContent = tier;
+                    row.classList.add(getTierClass(tier));
                 }
-            });
+            }
         })
         .catch(error => console.error('Error fetching leaderboard:', error));
 
