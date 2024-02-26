@@ -93,6 +93,7 @@
     fetch('results.json')
         .then(response => response.json())
         .then(data => {
+            console.log('Data fetched successfully:', data);
             const leaderboardTable = document.getElementById('leaderboardTable');
             let rank = 1;
             const tierOrder = [
@@ -108,9 +109,12 @@
                 'Low Tier 1'
             ];
             tierOrder.forEach(tier => {
+                console.log('Processing tier:', tier);
                 for (const player in data) {
                     if (data.hasOwnProperty(player)) {
+                        console.log('Checking player:', player);
                         if (data[player] === tier) {
+                            console.log('Player added to leaderboard:', player);
                             const row = leaderboardTable.insertRow();
                             row.insertCell(0).textContent = rank++;
                             row.insertCell(1).textContent = player;
