@@ -37,6 +37,7 @@
         .tier-item {
             margin-bottom: 5px;
             font-size: 16px;
+            cursor: pointer;
         }
 
         .username {
@@ -45,6 +46,16 @@
 
         .tier-emoji {
             margin-right: 5px;
+        }
+
+        .tier-info {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 1;
+            display: none;
         }
     </style>
 </head>
@@ -74,25 +85,37 @@
         </div>
     </div>
 
+    <div id="tier-info" class="tier-info"></div>
+
     <script>
         function createResultItem(username, tier) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('tier-item');
             resultItem.innerHTML = `<span class="tier-emoji">${getEmoji(tier)}</span><span class="username">${username}</span>`;
+            resultItem.addEventListener('click', () => showTierInfo(username, tier));
             return resultItem;
         }
 
         function getEmoji(tier) {
             switch (tier) {
-                case 'Tier 1':
+                case 'Low Tier 1':
                     return '🏆';
-                case 'Tier 2':
+                case 'Low Tier 2':
                     return '🥈';
-                case 'Tier 3':
+                case 'Low Tier 3':
                     return '🥉';
                 default:
                     return '';
             }
+        }
+
+        function showTierInfo(username, tier) {
+            const tierInfo = document.getElementById('tier-info');
+            tierInfo.textContent = `${username} is ${tier}`;
+            tierInfo.style.display = 'block';
+            setTimeout(() => {
+                tierInfo.style.display = 'none';
+            }, 3000); // Hide after 3 seconds
         }
 
         fetch('results.json')
