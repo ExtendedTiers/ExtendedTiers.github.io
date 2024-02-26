@@ -99,20 +99,15 @@
             tierInfo.innerHTML = `Username: ${username} <br> Tier: ${tier} <br> Tier Tests: ${tests}`;
             tierInfo.dataset.username = username;
             tierInfo.style.display = 'block';
-
-            document.querySelectorAll('.tier-item').forEach(item => {
-                if (item.textContent !== username) {
-                    item.classList.remove('selected');
-                }
-            });
-
-            document.addEventListener('click', function hideTierInfo(event) {
-                if (!tierInfo.contains(event.target)) {
-                    tierInfo.style.display = 'none';
-                    document.removeEventListener('click', hideTierInfo);
-                }
-            });
         }
+
+        // Hide tier info when clicking outside the bubble
+        document.addEventListener('click', function hideTierInfo(event) {
+            const tierInfo = document.getElementById('tier-info');
+            if (!tierInfo.contains(event.target)) {
+                tierInfo.style.display = 'none';
+            }
+        });
 
         // Fetch JSON data and populate the leaderboard
         fetch('results.json')
