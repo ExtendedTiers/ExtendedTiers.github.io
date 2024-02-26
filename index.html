@@ -93,52 +93,57 @@
     fetch('results.json')
         .then(response => response.json())
         .then(data => {
-            console.log('Data fetched successfully:', data);
             const leaderboardTable = document.getElementById('leaderboardTable');
             let rank = 1;
-            const tierOrder = [
-                'High Tier 5',
-                'Low Tier 5',
-                'High Tier 4',
-                'Low Tier 4',
-                'High Tier 3',
-                'Low Tier 3',
-                'High Tier 2',
-                'Low Tier 2',
-                'High Tier 1',
-                'Low Tier 1'
-            ];
-            tierOrder.forEach(tier => {
-                console.log('Processing tier:', tier);
-                for (const player in data) {
-                    if (data.hasOwnProperty(player)) {
-                        console.log('Checking player:', player);
-                        if (data[player] === tier) {
-                            console.log('Player added to leaderboard:', player);
-                            const row = leaderboardTable.insertRow();
-                            row.insertCell(0).textContent = rank++;
-                            row.insertCell(1).textContent = player;
-                            row.insertCell(2).textContent = tier;
-                            row.classList.add(getTierClass(tier));
-                        }
-                    }
+            const playersByTier = {
+                'Low Tier 1': [],
+                'High Tier 1': [],
+                'Low Tier 2': [],
+                'High Tier 2': [],
+                'Low Tier 3': [],
+                'High Tier 3': [],
+                'Low Tier 4': [],
+                'High Tier 4': [],
+                'Low Tier 5': [],
+                'High Tier 5': []
+            };
+
+            // Group players by tier
+            for (const player in data) {
+                if (data.hasOwnProperty(player)) {
+                    const tier = data[player];
+                    playersByTier[tier].push(player);
                 }
-            });
+            }
+
+            // Populate the leaderboard table
+            for (const tier in playersByTier) {
+                if (playersByTier.hasOwnProperty(tier)) {
+                    const players = playersByTier[tier];
+                    players.forEach(player => {
+                        const row = leaderboardTable.insertRow();
+                        row.insertCell(0).textContent = rank++;
+                        row.insertCell(1).textContent = player;
+                        row.insertCell(2).textContent = tier;
+                        row.classList.add(getTierClass(tier));
+                    });
+                }
+            }
         })
         .catch(error => console.error('Error fetching leaderboard:', error));
 
     function getTierClass(tier) {
         const tierClassMap = {
-            'High Tier 5': 'tier5',
             'Low Tier 5': 'tier5',
-            'High Tier 4': 'tier4',
+            'High Tier 5': 'tier5',
             'Low Tier 4': 'tier4',
-            'High Tier 3': 'tier3',
+            'High Tier 4': 'tier4',
             'Low Tier 3': 'tier3',
-            'High Tier 2': 'tier2',
+            'High Tier 3': 'tier3',
             'Low Tier 2': 'tier2',
-            'High Tier 1': 'tier1',
+            'High Tier 2': 'tier2',
             'Low Tier 1': 'tier1',
+            'High Tier 1': 'tier1',
         };
         return tierClassMap[tier];
     }
