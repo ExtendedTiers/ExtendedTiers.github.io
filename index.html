@@ -63,52 +63,22 @@
     <h1>Leaderboard</h1>
 
     <div class="tier-container">
-        <div class="tier-list">
-            <div class="tier-title">🏆 Tier 1</div>
-            <div id="tierLow Tier 1" class="tier-items"></div>
-        </div>
-        <div class="tier-list">
-            <div class="tier-title">🥈 Tier 2</div>
-            <div id="tierLow Tier 2" class="tier-items"></div>
-        </div>
-        <div class="tier-list">
-            <div class="tier-title">🥉 Tier 3</div>
-            <div id="tierLow Tier 3" class="tier-items"></div>
-        </div>
-        <div class="tier-list">
-            <div class="tier-title">Tier 4</div>
-            <div id="tierLow Tier 4" class="tier-items"></div>
-        </div>
-        <div class="tier-list">
-            <div class="tier-title">Tier 5</div>
-            <div id="tierLow Tier 5" class="tier-items"></div>
-        </div>
+        <!-- Tier lists will be dynamically populated here -->
     </div>
 
     <div id="tier-info" class="tier-info"></div>
 
     <script>
+        // Function to create a result item
         function createResultItem(username, tier, tests) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('tier-item');
-            resultItem.innerHTML = `<span class="tier-emoji">${getEmoji(tier)}</span><span class="username">${username}</span>`;
+            resultItem.innerHTML = `<span class="username">${username}</span>`;
             resultItem.addEventListener('click', () => showTierInfo(username, tier, tests));
             return resultItem;
         }
 
-        function getEmoji(tier) {
-            switch (tier) {
-                case 'Low Tier 1':
-                    return '🏆';
-                case 'Low Tier 2':
-                    return '🥈';
-                case 'Low Tier 3':
-                    return '🥉';
-                default:
-                    return '';
-            }
-        }
-
+        // Function to display tier information
         function showTierInfo(username, tier, tests) {
             const tierInfo = document.getElementById('tier-info');
             if (tierInfo.style.display === 'block' && tierInfo.dataset.username === username) {
@@ -134,14 +104,14 @@
             });
         }
 
+        // Fetch JSON data and populate the leaderboard
         fetch('results.json')
             .then(response => response.json())
             .then(data => {
-                console.log('Results:', data);
                 fetch('totalresults.json')
                     .then(response => response.json())
                     .then(totalData => {
-                        console.log('Total Results:', totalData);
+                        // Process the data and render the leaderboard
                         Object.keys(data).forEach(username => {
                             const tier = data[username];
                             const tests = totalData[username] || 0;
