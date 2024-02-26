@@ -52,7 +52,7 @@
             position: absolute;
             background-color: #333;
             color: #fff;
-            padding: 5px 10px;
+            padding: 10px;
             border-radius: 5px;
             z-index: 1;
             display: none;
@@ -88,11 +88,11 @@
     <div id="tier-info" class="tier-info"></div>
 
     <script>
-        function createResultItem(username, tier) {
+        function createResultItem(username, tier, tests) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('tier-item');
             resultItem.innerHTML = `<span class="tier-emoji">${getEmoji(tier)}</span><span class="username">${username}</span>`;
-            resultItem.addEventListener('click', () => showTierInfo(username, tier));
+            resultItem.addEventListener('click', () => showTierInfo(username, tier, tests));
             return resultItem;
         }
 
@@ -109,26 +109,47 @@
             }
         }
 
-        function showTierInfo(username, tier) {
+        function showTierInfo(username, tier, tests) {
             const tierInfo = document.getElementById('tier-info');
-            tierInfo.textContent = `${username} is ${tier}`;
-            tierInfo.style.display = 'block';
-            setTimeout(() => {
+            if (tierInfo.style.display === 'block' && tierInfo.dataset.username === username) {
                 tierInfo.style.display = 'none';
-            }, 3000); // Hide after 3 seconds
+                return;
+            }
+
+            tierInfo.textContent = `Tier: ${tier} <br> Tier Tests: ${tests}`;
+            tierInfo.dataset.username = username;
+            tierInfo.style.display = 'block';
+
+            document.querySelectorAll('.tier-item').forEach(item => {
+                if (item.textContent !== username) {
+                    item.classList.remove('selected');
+                }
+            });
+
+            document.addEventListener('click', function hideTierInfo(event) {
+                if (!tierInfo.contains(event.target)) {
+                    tierInfo.style.display = 'none';
+                    document.removeEventListener('click', hideTierInfo);
+                }
+            });
         }
 
         fetch('results.json')
             .then(response => response.json())
             .then(data => {
-                Object.keys(data).forEach(username => {
-                    const tier = data[username];
-                    const tierList = document.getElementById(`tier${tier}`);
-                    if (tierList) {
-                        const resultItem = createResultItem(username, tier);
-                        tierList.appendChild(resultItem);
-                    }
-                });
+                fetch('totalresults.json')
+                    .then(response => response.json())
+                    .then(totalData => {
+                        Object.keys(data).forEach(username => {
+                            const tier = data[username];
+                            const tests = totalData[username] || 0;
+                            const tierList = document.getElementById(`tier${tier}`);
+                            if (tierList) {
+                                const resultItem = createResultItem(username, tier, tests);
+                                tierList.appendChild(resultItem);
+                            }
+                        });
+                    });
             });
     </script>
 </body>
