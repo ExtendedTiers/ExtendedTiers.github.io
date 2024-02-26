@@ -133,24 +133,23 @@
                 }
             });
         }
-
-        fetch('results.json')
+fetch('results.json')
+    .then(response => response.json())
+    .then(data => {
+        fetch('totalresults.json')
             .then(response => response.json())
-            .then(data => {
-                fetch('totalresults.json')
-                    .then(response => response.json())
-                    .then(totalData => {
-                        Object.keys(data).forEach(username => {
-                            const tier = data[username];
-                            const tests = totalData[username] || 0;
-                            const tierList = document.getElementById(`tier${tier}`);
-                            if (tierList) {
-                                const resultItem = createResultItem(username, tier, tests);
-                                tierList.appendChild(resultItem);
-                            }
-                        });
-                    });
+            .then(totalData => {
+                Object.keys(data).forEach(username => {
+                    const tier = data[username];
+                    const tests = totalData[username] || 0;
+                    const tierList = document.getElementById(`tier${tier}`);
+                    if (tierList) {
+                        const resultItem = createResultItem(username, tier, tests);
+                        tierList.appendChild(resultItem);
+                    }
+                });
             });
+    });
     </script>
 </body>
 </html>
