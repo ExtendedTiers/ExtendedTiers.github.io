@@ -89,10 +89,11 @@
     </table>
 </div>
 
-<>
+<script>
     fetch('results.json')
         .then(response => response.json())
         .then(data => {
+            console.log(data); // Log the data received from results.json
             const leaderboardTable = document.getElementById('leaderboardTable');
             let rank = 1;
             for (const player in data) {
@@ -123,27 +124,6 @@
         };
         return tierClassMap[tier];
     }
-    <script>
-    fetch('results.json')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); // Log the data received from results.json
-            const leaderboardTable = document.getElementById('leaderboardTable');
-            let rank = 1;
-            for (const player in data) {
-                if (data.hasOwnProperty(player)) {
-                    const tier = data[player];
-                    const row = leaderboardTable.insertRow();
-                    row.insertCell(0).textContent = rank++;
-                    row.insertCell(1).textContent = player;
-                    row.insertCell(2).textContent = tier;
-                    row.classList.add(getTierClass(tier));
-                }
-            }
-        })
-        .catch(error => console.error('Error fetching leaderboard:', error));
-</script>
-
 </script>
 
 </body>
