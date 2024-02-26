@@ -44,10 +44,6 @@
             font-weight: bold;
         }
 
-        .tier-emoji {
-            margin-right: 5px;
-        }
-
         .tier-info {
             position: absolute;
             background-color: #333;
@@ -63,7 +59,21 @@
     <h1>Leaderboard</h1>
 
     <div class="tier-container">
-        <!-- Tier lists will be dynamically populated here -->
+        <div class="tier-list" id="tierLow Tier 1">
+            <div class="tier-title">Tier 1</div>
+        </div>
+        <div class="tier-list" id="tierLow Tier 2">
+            <div class="tier-title">Tier 2</div>
+        </div>
+        <div class="tier-list" id="tierLow Tier 3">
+            <div class="tier-title">Tier 3</div>
+        </div>
+        <div class="tier-list" id="tierLow Tier 4">
+            <div class="tier-title">Tier 4</div>
+        </div>
+        <div class="tier-list" id="tierLow Tier 5">
+            <div class="tier-title">Tier 5</div>
+        </div>
     </div>
 
     <div id="tier-info" class="tier-info"></div>
@@ -108,9 +118,12 @@
         fetch('results.json')
             .then(response => response.json())
             .then(data => {
+                console.log('Results:', data); // Log the fetched data
                 fetch('totalresults.json')
                     .then(response => response.json())
                     .then(totalData => {
+                        console.log('Total Results:', totalData); // Log the fetched total results data
+
                         // Process the data and render the leaderboard
                         Object.keys(data).forEach(username => {
                             const tier = data[username];
@@ -121,6 +134,9 @@
                                 tierList.appendChild(resultItem);
                             }
                         });
+
+                        // Log the populated leaderboard
+                        console.log('Populated Leaderboard:', document.querySelector('.tier-container').innerHTML);
                     });
             });
     </script>
