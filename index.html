@@ -4,6 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .tier-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .tier-list {
+            flex: 1;
+            margin-right: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .tier-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .tier-item {
+            margin-bottom: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .username {
+            font-weight: bold;
+        }
+
+        .tier-emoji {
+            margin-right: 5px;
+        }
+
+        .tier-info {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Leaderboard</h1>
