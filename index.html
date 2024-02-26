@@ -96,16 +96,16 @@
             const leaderboardTable = document.getElementById('leaderboardTable');
             let rank = 1;
             const tierOrder = [
-                'High Tier 1',
-                'Low Tier 1',
-                'High Tier 2',
-                'Low Tier 2',
-                'High Tier 3',
-                'Low Tier 3',
+                'High Tier 5',
+                'Low Tier 5',
                 'High Tier 4',
                 'Low Tier 4',
-                'High Tier 5',
-                'Low Tier 5'
+                'High Tier 3',
+                'Low Tier 3',
+                'High Tier 2',
+                'Low Tier 2',
+                'High Tier 1',
+                'Low Tier 1'
             ];
             tierOrder.forEach(tier => {
                 for (const player in data) {
@@ -125,16 +125,16 @@
 
     function getTierClass(tier) {
         const tierClassMap = {
-            'Low Tier 5': 'tier5',
             'High Tier 5': 'tier5',
-            'Low Tier 4': 'tier4',
+            'Low Tier 5': 'tier5',
             'High Tier 4': 'tier4',
-            'Low Tier 3': 'tier3',
+            'Low Tier 4': 'tier4',
             'High Tier 3': 'tier3',
-            'Low Tier 2': 'tier2',
+            'Low Tier 3': 'tier3',
             'High Tier 2': 'tier2',
-            'Low Tier 1': 'tier1',
+            'Low Tier 2': 'tier2',
             'High Tier 1': 'tier1',
+            'Low Tier 1': 'tier1',
         };
         return tierClassMap[tier];
     }
