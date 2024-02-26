@@ -91,22 +91,19 @@
         // Function to display tier information
         function showTierInfo(username, tier, tests) {
             const tierInfo = document.getElementById('tier-info');
-            if (tierInfo.style.display === 'block' && tierInfo.dataset.username === username) {
-                tierInfo.style.display = 'none';
-            } else {
-                tierInfo.innerHTML = `Username: ${username} <br> Tier: ${tier} <br> Tier Tests: ${tests}`;
-                tierInfo.dataset.username = username;
-                tierInfo.style.display = 'block';
-            }
+            tierInfo.innerHTML = `Username: ${username} <br> Tier: ${tier} <br> Tier Tests: ${tests}`;
+            tierInfo.style.display = 'block';
+            document.addEventListener('click', hideTierInfo);
         }
 
-        // Hide tier info when clicking outside the bubble
-        document.addEventListener('click', function hideTierInfo(event) {
+        // Function to hide tier info
+        function hideTierInfo(event) {
             const tierInfo = document.getElementById('tier-info');
             if (!tierInfo.contains(event.target)) {
                 tierInfo.style.display = 'none';
+                document.removeEventListener('click', hideTierInfo);
             }
-        });
+        }
 
         // Fetch JSON data and populate the leaderboard
         fetch('results.json')
