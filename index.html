@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
-        <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -65,23 +65,23 @@
     <div class="tier-container">
         <div class="tier-list">
             <div class="tier-title">🏆 Tier 1</div>
-            <div id="tier1" class="tier-items"></div>
+            <div id="tierLow Tier 1" class="tier-items"></div>
         </div>
         <div class="tier-list">
             <div class="tier-title">🥈 Tier 2</div>
-            <div id="tier2" class="tier-items"></div>
+            <div id="tierLow Tier 2" class="tier-items"></div>
         </div>
         <div class="tier-list">
             <div class="tier-title">🥉 Tier 3</div>
-            <div id="tier3" class="tier-items"></div>
+            <div id="tierLow Tier 3" class="tier-items"></div>
         </div>
         <div class="tier-list">
             <div class="tier-title">Tier 4</div>
-            <div id="tier4" class="tier-items"></div>
+            <div id="tierLow Tier 4" class="tier-items"></div>
         </div>
         <div class="tier-list">
             <div class="tier-title">Tier 5</div>
-            <div id="tier5" class="tier-items"></div>
+            <div id="tierLow Tier 5" class="tier-items"></div>
         </div>
     </div>
 
@@ -133,23 +133,26 @@
                 }
             });
         }
-fetch('results.json')
-    .then(response => response.json())
-    .then(data => {
-        fetch('totalresults.json')
+
+        fetch('results.json')
             .then(response => response.json())
-            .then(totalData => {
-                Object.keys(data).forEach(username => {
-                    const tier = data[username];
-                    const tests = totalData[username] || 0;
-                    const tierList = document.getElementById(`tier${tier}`);
-                    if (tierList) {
-                        const resultItem = createResultItem(username, tier, tests);
-                        tierList.appendChild(resultItem);
-                    }
-                });
+            .then(data => {
+                console.log('Results:', data);
+                fetch('totalresults.json')
+                    .then(response => response.json())
+                    .then(totalData => {
+                        console.log('Total Results:', totalData);
+                        Object.keys(data).forEach(username => {
+                            const tier = data[username];
+                            const tests = totalData[username] || 0;
+                            const tierList = document.getElementById(`tier${tier}`);
+                            if (tierList) {
+                                const resultItem = createResultItem(username, tier, tests);
+                                tierList.appendChild(resultItem);
+                            }
+                        });
+                    });
             });
-    });
     </script>
 </body>
 </html>
