@@ -59,25 +59,20 @@
     <h1>Leaderboard</h1>
 
     <div class="tier-container">
-        <div class="tier-list">
+        <div class="tier-list" id="tierLow Tier 1">
             <div class="tier-title">Tier 1</div>
-            <div id="tierLow Tier 1" class="tier-items"></div>
         </div>
-        <div class="tier-list">
+        <div class="tier-list" id="tierLow Tier 2">
             <div class="tier-title">Tier 2</div>
-            <div id="tierLow Tier 2" class="tier-items"></div>
         </div>
-        <div class="tier-list">
+        <div class="tier-list" id="tierLow Tier 3">
             <div class="tier-title">Tier 3</div>
-            <div id="tierLow Tier 3" class="tier-items"></div>
         </div>
-        <div class="tier-list">
+        <div class="tier-list" id="tierLow Tier 4">
             <div class="tier-title">Tier 4</div>
-            <div id="tierLow Tier 4" class="tier-items"></div>
         </div>
-        <div class="tier-list">
+        <div class="tier-list" id="tierLow Tier 5">
             <div class="tier-title">Tier 5</div>
-            <div id="tierLow Tier 5" class="tier-items"></div>
         </div>
     </div>
 
@@ -101,7 +96,7 @@
                 return;
             }
 
-            tierInfo.textContent = `Tier: ${tier} <br> Tier Tests: ${tests}`;
+            tierInfo.innerHTML = `Username: ${username} <br> Tier: ${tier} <br> Tier Tests: ${tests}`;
             tierInfo.dataset.username = username;
             tierInfo.style.display = 'block';
 
@@ -123,12 +118,9 @@
         fetch('results.json')
             .then(response => response.json())
             .then(data => {
-                console.log('Results:', data); // Log the fetched data
                 fetch('totalresults.json')
                     .then(response => response.json())
                     .then(totalData => {
-                        console.log('Total Results:', totalData); // Log the fetched total results data
-
                         // Process the data and render the leaderboard
                         Object.keys(data).forEach(username => {
                             const tier = data[username];
@@ -139,9 +131,6 @@
                                 tierList.appendChild(resultItem);
                             }
                         });
-
-                        // Log the populated leaderboard
-                        console.log('Populated Leaderboard:', document.querySelector('.tier-container').innerHTML);
                     });
             });
     </script>
