@@ -93,9 +93,6 @@
             const tierInfo = document.getElementById('tier-info');
             tierInfo.innerHTML = `Username: ${username} <br> Tier: ${tier} <br> Tier Tests: ${tests}`;
             tierInfo.style.display = 'block';
-
-            // Remove existing click event listener before adding a new one
-            document.removeEventListener('click', hideTierInfo);
             document.addEventListener('click', hideTierInfo);
         }
 
@@ -125,8 +122,10 @@
                                 tierList.appendChild(resultItem);
                             }
                         });
-                    });
-            });
+                    })
+                    .catch(error => console.error('Error fetching total results:', error)); // Log any errors
+            })
+            .catch(error => console.error('Error fetching results:', error)); // Log any errors
     </script>
 </body>
 </html>
